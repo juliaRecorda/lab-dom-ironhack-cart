@@ -1,9 +1,13 @@
 // ITERATION 1
 
 function updateSubtotal(product) {
-  console.log('Calculating subtotal, yey!');
-
-  //... your code goes here
+  const price = product.querySelector('.price span')
+  const quantity = product.querySelector('.quantity input')
+  const priceValue = Number(price.textContent);
+  const quantityValue = Number(quantity.value)
+  const subtotal = priceValue * quantityValue;
+  const subtotalElement = product.querySelector ('.subtotal span')
+  subtotalElement.textContent = subtotal 
 }
 
 function calculateAll() {
@@ -11,15 +15,40 @@ function calculateAll() {
   // it runs when only iteration 1 is completed. at later point, it can be removed.
   const singleProduct = document.querySelector('.product');
   updateSubtotal(singleProduct);
-  // end of test
 
-  // ITERATION 2
-  //... your code goes here
-
-  // ITERATION 3
-  //... your code goes here
 }
 
+  // ITERATION 2
+  const quantitiesXPrices = []
+
+  function calculateAll() {
+    // const allProducts = document.querySelectorAll(".product")
+    const allPrices = document.querySelectorAll(".price span")
+    const allPricesValues = [...allPrices].map(element => element.innerHTML)
+    const allQuantities = document.querySelectorAll(".quantity input")
+    const allQuantitiesValues = [...allQuantities].map(element => element.value)
+    for (let i = 0; i < allPricesValues.length; i++){
+      quantitiesXPrices[i] = allPricesValues[i] * allQuantitiesValues[i]
+    }
+
+  const subtotalElements = document.querySelectorAll(".subtotal span");
+  for (let i = 0; i < subtotalElements.length; i++) {
+    subtotalElements[i].textContent = quantitiesXPrices[i];
+  }
+  
+}
+
+
+
+  // ITERATION 3
+  function calculateAllTotal() {
+let total = 0;
+for ( let i = 0; i < quantitiesXPrices.length; i++){
+  total += quantitiesXPrices[i]
+}
+  const totalElement = document.querySelector("#total-value span");
+  totalElement.textContent = total
+  }
 // ITERATION 4
 
 function removeProduct(event) {
@@ -37,6 +66,5 @@ function createProduct() {
 window.addEventListener('load', () => {
   const calculatePricesBtn = document.getElementById('calculate');
   calculatePricesBtn.addEventListener('click', calculateAll);
-
-  //... your code goes here
+  calculatePricesBtn.addEventListener('click', calculateAllTotal);
 });
